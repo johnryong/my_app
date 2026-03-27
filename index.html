@@ -77,8 +77,16 @@ html,body{height:100%;font-family:-apple-system,sans-serif;background:#000}
 .list-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
 .list-name{color:#fff;font-size:14px}
 .list-addr{color:#888;font-size:12px;margin-top:1px}
-.fav-popup{font-size:13px;line-height:1.8;min-width:130px}
-.fav-popup strong{font-size:15px;display:block;margin-bottom:2px}
+/* Leaflet 팝업 → 데스크탑 dark 스타일 */
+.leaflet-popup-content-wrapper{
+  background:rgba(0,0,0,.72)!important;border-radius:8px!important;
+  padding:0!important;box-shadow:0 4px 16px rgba(0,0,0,.4)!important;border:none!important;
+}
+.leaflet-popup-content{margin:6px 10px!important;color:#fde047!important;font-size:12px!important;line-height:1.5!important;}
+.leaflet-popup-tip{background:rgba(0,0,0,.72)!important;}
+.leaflet-popup-close-button{color:rgba(255,255,255,.5)!important;top:3px!important;right:5px!important;}
+.pau-name{font-weight:700;color:#fde047;}
+.pau-memo{font-size:11px;color:#fde047;white-space:pre-line;}
 </style>
 </head>
 <body>
@@ -160,28 +168,28 @@ FAVS.forEach(fav=>{
   const label=fav.name||t.label;
   const icon=L.divIcon({
     className:'',
-    html:`<div style="display:flex;flex-direction:column;align-items:center;gap:1px">
-      <div style="width:8px;height:8px;border-radius:50%;background:${t.color};border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.5);flex-shrink:0"></div>
-      <div style="background:rgba(0,0,0,.55);color:#fff;border-radius:3px;padding:1px 3px;font-size:9px;font-weight:600;white-space:nowrap;line-height:1.2;max-width:70px;overflow:hidden;text-overflow:ellipsis">${label}</div>
+    html:`<div style="display:flex;flex-direction:column;align-items:center;gap:1px;width:72px">
+      <div style="width:8px;height:8px;border-radius:50%;background:${t.color};border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.5)"></div>
+      <div style="background:rgba(0,0,0,.6);color:#fff;border-radius:3px;padding:1px 4px;font-size:9px;font-weight:600;white-space:nowrap;line-height:1.3;max-width:72px;overflow:hidden;text-overflow:ellipsis;text-align:center">${label}</div>
     </div>`,
-    iconSize:null,iconAnchor:[4,4],
+    iconSize:[72,24],iconAnchor:[36,4],
   });
   const m=L.marker([fav.lat,fav.lng],{icon}).addTo(map);
   const lastDong=s=>s?s.trim().split(/s+/).pop():'';
   const fmtNum=v=>{const n=Number(String(v).replace(/,/g,''));return v!==''&&!isNaN(n)?n.toLocaleString():v;};
-  const popName=[lastDong(fav.dong),fav.jibun].filter(Boolean).join(' ');
+  const popName=[lastDong(fav.dong),fav.jibun].filter(Boolean).join(' ')||fav.name||t.label;
   const popLine1=[fav.jimok,fav.jiyuk].filter(Boolean).join('/');
   const popLine2=fmtNum((fav.memo||'').split(' / ')[0]);
-  m.bindPopup(`<div class="fav-popup">
-    <strong>${popName||fav.name||t.label}</strong>
-    ${popLine1?'<br/>'+popLine1:''}${popLine2?'<br/>'+popLine2:''}
-  </div>`);
+  const memoText=[popLine1,popLine2].filter(Boolean).join('
+');
+  m.bindPopup(`<div><div class="pau-name">${popName}</div>${memoText?'<div class="pau-memo">'+memoText+'</div>':''}</div>`,{closeButton:false});
 
+  const addr=(fav.dong?fav.dong+' ':'')+(fav.jibun||'');
   const div=document.createElement('div');
   div.className='list-item';
   div.innerHTML=`<div class="list-dot" style="background:${t.color}"></div>
-    <div><div class="list-name">${fav.name||t.label+seq}</div>
-    <div class="list-addr">${addr}</div></div>`;
+    <div><div class="list-name">${label}</div>
+    <div class="list-addr">${addr.trim()}</div></div>`;
   div.onclick=()=>{ map.setView([fav.lat,fav.lng],18); m.openPopup(); closeList(); };
   listEl.appendChild(div);
 });
