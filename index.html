@@ -167,12 +167,14 @@ FAVS.forEach(fav=>{
     iconSize:null,iconAnchor:[4,4],
   });
   const m=L.marker([fav.lat,fav.lng],{icon}).addTo(map);
-  const addr=(fav.dong?fav.dong+' ':''+(fav.jibun||'')).trim();
+  const lastDong=s=>s?s.trim().split(/s+/).pop():'';
+  const fmtNum=v=>{const n=Number(String(v).replace(/,/g,''));return v!==''&&!isNaN(n)?n.toLocaleString():v;};
+  const popName=[lastDong(fav.dong),fav.jibun].filter(Boolean).join(' ');
+  const popLine1=[fav.jimok,fav.jiyuk].filter(Boolean).join('/');
+  const popLine2=fmtNum((fav.memo||'').split(' / ')[0]);
   m.bindPopup(`<div class="fav-popup">
-    <strong>${fav.name||t.label+seq}</strong>
-    ${t.label} ${seq}<br/>
-    ${addr}<br/>
-    ${fav.memo||''}
+    <strong>${popName||fav.name||t.label}</strong>
+    ${popLine1?'<br/>'+popLine1:''}${popLine2?'<br/>'+popLine2:''}
   </div>`);
 
   const div=document.createElement('div');
