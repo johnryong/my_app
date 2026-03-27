@@ -9,84 +9,26 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;font-family:-apple-system,sans-serif;background:#000}
 #map{position:absolute;inset:0}
-#layer-toggle{
-  position:fixed;top:12px;left:50%;transform:translateX(-50%);
-  display:flex;gap:4px;z-index:1000;
-  background:rgba(0,0,0,.65);border-radius:20px;padding:4px;
-  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
-}
-#layer-toggle button{
-  padding:6px 14px;border:none;border-radius:16px;
-  font-size:13px;font-weight:500;cursor:pointer;
-  color:#ccc;background:transparent;transition:all .15s;
-}
+#layer-toggle{position:fixed;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:1000;background:rgba(0,0,0,.65);border-radius:20px;padding:4px;}
+#layer-toggle button{padding:6px 14px;border:none;border-radius:16px;font-size:13px;font-weight:500;cursor:pointer;color:#ccc;background:transparent;}
 #layer-toggle button.active{background:white;color:#000;font-weight:700}
-#gps-btn,#list-btn{
-  position:fixed;bottom:32px;z-index:1000;
-  width:50px;height:50px;border-radius:50%;border:none;
-  background:white;font-size:22px;
-  box-shadow:0 2px 10px rgba(0,0,0,.35);cursor:pointer;
-}
-#gps-btn{right:16px}
-#list-btn{left:16px}
-#gps-btn.tracking{background:#3b82f6}
-@keyframes gps-pulse{
-  0%{transform:scale(1);opacity:1}
-  70%{transform:scale(2.8);opacity:0}
-  100%{transform:scale(1);opacity:0}
-}
-.gps-dot{
-  position:relative;width:16px;height:16px;
-}
-.gps-dot-inner{
-  width:16px;height:16px;background:#ef4444;border-radius:50%;
-  border:2.5px solid #fff;box-shadow:0 0 4px rgba(0,0,0,.4);
-  position:relative;z-index:1;
-}
-.gps-dot-ring{
-  position:absolute;top:0;left:0;
-  width:16px;height:16px;border-radius:50%;
-  background:#ef4444;opacity:.6;
-  animation:gps-pulse 1.6s ease-out infinite;
-}
-#toast{
-  position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
-  background:rgba(0,0,0,.75);color:white;padding:8px 18px;
-  border-radius:20px;font-size:13px;z-index:2000;
-  opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;
-}
+#gps-btn{position:fixed;bottom:32px;right:16px;z-index:1000;width:50px;height:50px;border-radius:50%;border:none;background:white;font-size:22px;box-shadow:0 2px 10px rgba(0,0,0,.35);cursor:pointer;}
+#list-btn{position:fixed;bottom:32px;left:16px;z-index:1000;width:50px;height:50px;border-radius:50%;border:none;background:white;font-size:22px;box-shadow:0 2px 10px rgba(0,0,0,.35);cursor:pointer;}
+@keyframes gps-pulse{0%{transform:scale(1);opacity:1}70%{transform:scale(2.8);opacity:0}100%{transform:scale(1);opacity:0}}
+.gps-dot{position:relative;width:16px;height:16px;}
+.gps-dot-inner{width:16px;height:16px;background:#ef4444;border-radius:50%;border:2.5px solid #fff;position:relative;z-index:1;}
+.gps-dot-ring{position:absolute;top:0;left:0;width:16px;height:16px;border-radius:50%;background:#ef4444;opacity:.6;animation:gps-pulse 1.6s ease-out infinite;}
+#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:white;padding:8px 18px;border-radius:20px;font-size:13px;z-index:2000;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 #toast.show{opacity:1}
-#list-panel{
-  position:fixed;bottom:0;left:0;right:0;z-index:1500;
-  background:#1e1e1e;border-radius:16px 16px 0 0;
-  max-height:60vh;overflow-y:auto;padding:0 0 32px;
-  transform:translateY(100%);transition:transform .3s;
-}
+#list-panel{position:fixed;bottom:0;left:0;right:0;z-index:1500;background:#1e1e1e;border-radius:16px 16px 0 0;max-height:60vh;overflow-y:auto;padding:0 0 32px;transform:translateY(100%);transition:transform .3s;}
 #list-panel.open{transform:translateY(0)}
-#list-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:12px 16px;border-bottom:1px solid #333;
-}
+#list-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #333;}
 #list-header h3{font-size:15px;color:#fff}
 #list-close{background:none;border:none;color:#888;font-size:20px;cursor:pointer}
-.list-item{
-  display:flex;align-items:center;gap:12px;
-  padding:11px 16px;border-bottom:1px solid #272727;cursor:pointer;
-}
-.list-item:active{background:#2a2a2a}
+.list-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #272727;cursor:pointer;}
 .list-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
 .list-name{color:#fff;font-size:14px}
 .list-addr{color:#888;font-size:12px;margin-top:1px}
-/* Leaflet 팝업 → 데스크탑 dark 스타일 */
-.leaflet-popup-content-wrapper{
-  background:rgba(0,0,0,.72)!important;border-radius:8px!important;
-  padding:0!important;box-shadow:0 4px 16px rgba(0,0,0,.4)!important;border:none!important;
-}
-.leaflet-popup-content{margin:6px 10px!important;color:#fde047!important;font-size:12px!important;line-height:1.5!important;}
-.leaflet-popup-tip{background:rgba(0,0,0,.72)!important;}
-.leaflet-popup-close-button{color:rgba(255,255,255,.5)!important;top:3px!important;right:5px!important;}
-.pau-name{font-weight:700;color:#fde047;}
-.pau-memo{font-size:11px;color:#fde047;white-space:pre-line;}
 </style>
 </head>
 <body>
@@ -95,160 +37,74 @@ html,body{height:100%;font-family:-apple-system,sans-serif;background:#000}
   <button id="btn-normal">일반</button>
   <button id="btn-aerial" class="active">항공</button>
 </div>
-<button id="gps-btn" title="현재위치">📍</button>
-<button id="list-btn" title="목록">☰</button>
+<button id="gps-btn">📍</button>
+<button id="list-btn">☰</button>
 <div id="toast"></div>
-<div id="list-panel">
-  <div id="list-header">
-    <h3>즐겨찾기 목록</h3>
-    <button id="list-close">✕</button>
-  </div>
-  <div id="list-items"></div>
-</div>
-
-<script type="application/json" id="d-key">"BF236E29-368D-344A-AF28-8DB019EAE50A"</script>
+<div id="list-panel"><div id="list-header"><h3>즐겨찾기 목록</h3><button id="list-close">✕</button></div><div id="list-items"></div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="application/json" id="d-favs">[{"id":"17744484851239vlfs465hbo","name":"3","memo":"메모1 / 메모2","dong":"연서면 봉암리","jibun":"245-4","jimok":"대","jiyuk":"계관","type":1,"lat":36.560986262853135,"lng":127.2870680068467,"createdAt":"2026-03-25T14:21:25.123Z"},{"id":"1774427139721uf7rsc7kadj","name":"14","memo":"1215000","dong":"연서면 봉암리","jibun":"591-4","jimok":"대","jiyuk":"계관","type":1,"lat":36.55931354774387,"lng":127.28366849640794,"createdAt":"2026-03-25T08:25:39.721Z"},{"id":"17744271396037k4b8zwo1y8","name":"13","memo":"1310000","dong":"연서면 봉암리","jibun":"478-2","jimok":"대","jiyuk":"계관","type":1,"lat":36.560684385516666,"lng":127.28643184715283,"createdAt":"2026-03-25T08:25:39.603Z"},{"id":"1774427139477w5z0hrvx2d","name":"12","memo":"1310000","dong":"연서면 봉암리","jibun":"468-2","jimok":"대","jiyuk":"계관","type":1,"lat":36.559595287199386,"lng":127.2869121188667,"createdAt":"2026-03-25T08:25:39.477Z"},{"id":"17744271393474ezt5njs7sp","name":"11","memo":"1285000","dong":"연서면 봉암리","jibun":"463","jimok":"대","jiyuk":"계관","type":1,"lat":36.559032312419774,"lng":127.28690356535155,"createdAt":"2026-03-25T08:25:39.347Z"},{"id":"1774427139229yue8wtbbhi","name":"10","memo":"873500","dong":"연서면 봉암리","jibun":"448","jimok":"전","jiyuk":"계관","type":1,"lat":36.55883628714125,"lng":127.28746202968894,"createdAt":"2026-03-25T08:25:39.230Z"},{"id":"17744271391133fyeq5m66ub","name":"9","memo":"412000","dong":"연서면 봉암리","jibun":"442-3","jimok":"대","jiyuk":"계관","type":1,"lat":36.55964099264369,"lng":127.28721814365646,"createdAt":"2026-03-25T08:25:39.113Z"},{"id":"1774427138576qxba9rqnro","name":"8","memo":"410500","dong":"연서면 봉암리","jibun":"416-2","jimok":"답","jiyuk":"농림","type":1,"lat":36.5580551673347,"lng":127.28862847583044,"createdAt":"2026-03-25T08:25:38.576Z"},{"id":"1774427138228z6e0vmeobr","name":"7","memo":"1030000","dong":"연서면 봉암리","jibun":"416-1","jimok":"대","jiyuk":"계관","type":1,"lat":36.55833870331189,"lng":127.2884612784306,"createdAt":"2026-03-25T08:25:38.228Z"},{"id":"1774427138084aa12j2kcwrh","name":"6","memo":"1009000","dong":"연서면 봉암리","jibun":"253-6","jimok":"대","jiyuk":"계관","type":1,"lat":36.5614981391398,"lng":127.28797867463237,"createdAt":"2026-03-25T08:25:38.084Z"},{"id":"1774427137950fxiro3ws6kl","name":"5","memo":"696000","dong":"연서면 봉암리","jibun":"252","jimok":"전","jiyuk":"계관","type":1,"lat":36.56122193923497,"lng":127.28829800997643,"createdAt":"2026-03-25T08:25:37.950Z"},{"id":"1774427137535f8i59ervkx","name":"2","memo":"1050000","dong":"연서면 봉암리","jibun":"245","jimok":"대","jiyuk":"계관","type":1,"lat":36.56120029216386,"lng":127.28726909521052,"createdAt":"2026-03-25T08:25:37.535Z"},{"id":"1774427137413o0glkxfoul","name":"1","memo":"1270000","dong":"연서면 봉암리","jibun":"243-1","jimok":"대","jiyuk":"계관","type":1,"lat":36.56082665219748,"lng":127.286657449252,"createdAt":"2026-03-25T08:25:37.413Z"}]</script>
 <script type="application/json" id="d-cad">{"features":[{"geometry":{"coordinates":[[[[127.2812238796942,36.5550884758825],[127.28133719693405,36.55496186111792],[127.28150759457525,36.55477139258501],[127.28150137688978,36.5547600528176],[127.28139313346561,36.554760306947756],[127.28121784951163,36.55474485819515],[127.28101444353845,36.5546991967943],[127.28084845160444,36.554680292371245],[127.28051151610804,36.554594833103664],[127.28046241285287,36.554724820340056],[127.28045177453033,36.554841551914066],[127.28043315607972,36.55491648924186],[127.2804089209694,36.5550167617465],[127.28062800816444,36.55506824488164],[127.28068145970349,36.55497024689646],[127.2812238796942,36.5550884758825]]]],"type":"MultiPolygon"},"properties":{"area":3254,"dong":"보통리","jibun":"286-5","ldcode":"3611031022","lndcgr":"02","pnu":"3611031022102860005","price":487800,"prpos":"64","pstyr1":471200,"sittn":"610","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28221121595764,36.560868544544306],[127.28219239686644,36.560915727449895],[127.28227391605213,36.560933468185894],[127.28256344766218,36.560996361413075],[127.28262901625766,36.560894044662334],[127.28266735914757,36.56076310881285],[127.28228243636113,36.560667224511675],[127.28221121595764,36.560868544544306]]]],"type":"MultiPolygon"},"properties":{"area":1020,"dong":"봉암리","jibun":"198-4","ldcode":"3611036033","lndcgr":"02","pnu":"3611036033101980004","price":319400,"prpos":"64","pstyr1":314800,"sittn":"510","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.2836142532202,36.56449245303483],[127.28359610185382,36.564492856438335],[127.28356699283853,36.564493556104566],[127.2835387995072,36.5644941634838],[127.28351256854431,36.56450296657772],[127.28351509502622,36.56451269290079],[127.28339294463042,36.564572276698854],[127.28343551542523,36.56472547776926],[127.28365575473154,36.56463104909851],[127.28365559346175,36.56458670444077],[127.28365547581137,36.56455435383677],[127.2836142532202,36.56449245303483]]]],"type":"MultiPolygon"},"properties":{"area":417,"dong":"봉암리","jibun":"112-5","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033101120005","price":838500,"prpos":"64","pstyr1":824900,"sittn":"310","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28471671975731,36.563324288279375],[127.28454463585445,36.563251443336185],[127.28443147546045,36.56341680057632],[127.28450325333853,36.56344277226617],[127.28469451312753,36.56333678575572],[127.28469690989668,36.56333542835445],[127.28471671975731,36.563324288279375]]]],"type":"MultiPolygon"},"properties":{"area":248,"dong":"봉암리","jibun":"54-44","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033100540044","price":420100,"prpos":"64","pstyr1":412000,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28290562394747,36.56266951954176],[127.28290628001382,36.562671770841064],[127.28291859650115,36.56271356363612],[127.2829435253625,36.56280479919393],[127.28295350507658,36.56283676607313],[127.28303416488748,36.56282332889657],[127.28303468053223,36.56281458663004],[127.28308020512962,36.562815650606055],[127.28310378863411,36.562816225704935],[127.28313503028977,36.56281543100134],[127.28314061183984,36.56290670320348],[127.28316987581658,36.562896541316064],[127.28318185500495,36.562897684496576],[127.28311685235799,36.56273454263837],[127.2830797460924,36.56263991154698],[127.28290562394747,36.56266951954176]]]],"type":"MultiPolygon"},"properties":{"area":351,"dong":"봉암리","jibun":"215-6","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033102150006","price":977800,"prpos":"64","pstyr1":957200,"sittn":"210","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.2853439185317,36.56336778164105],[127.28534217322996,36.56336705587344],[127.28518385340217,36.56328262648526],[127.28508636621174,36.56323077256624],[127.28506314173593,36.56321843714254],[127.28499622461284,36.563272349211346],[127.28496871534094,36.56325826673637],[127.28491825565548,36.56323041534063],[127.28498458147504,36.563176702971646],[127.28493772966057,36.563151816764034],[127.28492555047228,36.563172391684844],[127.28488709334567,36.56321321457797],[127.28486241485469,36.56324013618425],[127.28478853281325,36.5632834042155],[127.28482918029357,36.56330397975799],[127.284909255374,36.56334449389196],[127.28494237100348,36.56336124844661],[127.28498812755397,36.56339818548304],[127.28501953697423,36.563400444747444],[127.2849345606086,36.563394338813],[127.28493089715742,36.56342507635935],[127.28498074166255,36.56347407894188],[127.28509336681257,36.56353238513924],[127.2851265449453,36.56354481402654],[127.2853439185317,36.56336778164105]]]],"type":"MultiPolygon"},"properties":{"area":933,"dong":"봉암리","jibun":"225","ldcode":"3611036033","lndcgr":"01","pnu":"3611036033102250000","price":297700,"prpos":"64","pstyr1":293000,"sittn":"510","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28291431739885,36.56150909309021],[127.28289118036946,36.56158223910232],[127.28290126215633,36.561593119093516],[127.28301477148014,36.561591499434286],[127.28300955841814,36.56157709351457],[127.28303829543155,36.561575764067015],[127.28306474716427,36.56162805779479],[127.28308611196063,36.561651445971734],[127.28311460993872,36.56168273831075],[127.2832612859715,36.56157992324074],[127.28319124839817,36.561500419007444],[127.28316722312962,36.561454968233036],[127.28314762021478,36.56146150274317],[127.2830869630947,36.56147966879668],[127.2830279605342,36.56149512749492],[127.28297554743226,36.561497954658265],[127.28297712077477,36.56150056424791],[127.28291759809117,36.56149890247325],[127.28291431739885,36.56150909309021]]]],"type":"MultiPolygon"},"properties":{"area":427,"dong":"봉암리","jibun":"230-32","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033102300032","price":469500,"prpos":"64","pstyr1":460400,"sittn":"150","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28726094878795,36.56108581677239],[127.28720706938049,36.561093785803095],[127.28716916582361,36.56110838496417],[127.28714488872569,36.56111953615131],[127.2872359580281,36.56128234303725],[127.28729957195858,36.56126660086302],[127.28736178021,36.56122103431717],[127.28726094878795,36.56108581677239]]]],"type":"MultiPolygon"},"properties":{"area":238,"dong":"봉암리","jibun":"245","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033102450000","price":400800,"prpos":"64","pstyr1":392800,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.2866332278501,36.55877966370598],[127.2866984466267,36.55882727713677],[127.28678529413578,36.558793727209405],[127.28676999268671,36.5587151754347],[127.28673284143045,36.55866064624149],[127.28663107931719,36.55857796676408],[127.28653435056113,36.55867346651647],[127.28647692502373,36.55873129473777],[127.28652893041847,36.55877919216087],[127.28657477674695,36.558795492309386],[127.2866332278501,36.55877966370598]]]],"type":"MultiPolygon"},"properties":{"area":437,"dong":"봉암리","jibun":"460","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033104600000","price":397300,"prpos":"64","pstyr1":389700,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28700233357972,36.55950508992595],[127.28700828468853,36.559373824709255],[127.28699391942301,36.559328189356236],[127.2868531104444,36.55931987548591],[127.28684047104404,36.55939118586895],[127.2868330575703,36.55942860991058],[127.2868148545458,36.559514892519005],[127.28686846467855,36.559512961944534],[127.28700233357972,36.55950508992595]]]],"type":"MultiPolygon"},"properties":{"area":311,"dong":"봉암리","jibun":"466-2","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033104660002","price":424200,"prpos":"64","pstyr1":416100,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28474398346467,36.557551578653474],[127.2847415660996,36.55775841400556],[127.28475467134847,36.55775613002436],[127.28485194544739,36.5577515734317],[127.2850690214088,36.55775105737668],[127.28506035117772,36.557548663972824],[127.28481058780142,36.55755096984764],[127.28474398346467,36.557551578653474]]]],"type":"MultiPolygon"},"properties":{"area":639,"dong":"봉암리","jibun":"570-2","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033105700002","price":205200,"prpos":"71","pstyr1":200500,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28563123702591,36.557258732955276],[127.28532150804506,36.5572623542582],[127.28521702638963,36.55726287325385],[127.2852189637122,36.55738948780461],[127.28522255975271,36.55751456646803],[127.28542247614301,36.55751354991686],[127.28568910328771,36.55751354553213],[127.28574244960369,36.557513148032285],[127.2858716175384,36.5574883290421],[127.28587270579544,36.557254913207956],[127.28563390661645,36.557258726593815],[127.28563123702591,36.557258732955276]]]],"type":"MultiPolygon"},"properties":{"area":1657,"dong":"봉암리","jibun":"572-1","ldcode":"3611036033","lndcgr":"02","pnu":"3611036033105720001","price":110600,"prpos":"71","pstyr1":110000,"sittn":"510","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28563462835797,36.55818499744454],[127.28575157445106,36.55819291908004],[127.28573475662546,36.5580538051763],[127.28563414361322,36.558052603151765],[127.2855403557724,36.55805147489782],[127.28549544914237,36.55801706821268],[127.28541638131465,36.5580123002412],[127.28540474573663,36.55820564044102],[127.28542896718035,36.558280206145554],[127.2854997612796,36.55824001793232],[127.28558218262634,36.55817827374756],[127.28563462835797,36.55818499744454]]]],"type":"MultiPolygon"},"properties":{"area":562,"dong":"봉암리","jibun":"577-1","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033105770001","price":351100,"prpos":"64","pstyr1":344400,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28470440130957,36.56046656192771],[127.2847487964883,36.56028405684539],[127.28470123882197,36.5602305430066],[127.28461006012193,36.5601890367828],[127.28445110137541,36.5601326333161],[127.28438188264303,36.56007242121507],[127.28433378521757,36.56004846588198],[127.28424324757671,36.56000497534812],[127.28411024384336,36.559940940301445],[127.28407818884325,36.55996652753329],[127.28407232158438,36.56002709801078],[127.28422905395969,36.56010414335714],[127.2841900601445,36.56015064449551],[127.28425400019964,36.56022448544219],[127.28427153154323,36.56025652443016],[127.28436337249055,36.56032957823241],[127.2844670419458,36.56038395030595],[127.28453329924187,36.56043759106592],[127.28460423460552,36.560459951144324],[127.28470440130957,36.56046656192771]]]],"type":"MultiPolygon"},"properties":{"area":1421,"dong":"봉암리","jibun":"593","ldcode":"3611036033","lndcgr":"03","pnu":"3611036033105930000","price":247100,"prpos":"64","pstyr1":243700,"sittn":"510","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28324641545846,36.55921957684055],[127.28322916766774,36.55926545856684],[127.28346891085639,36.55931681551948],[127.28351574796174,36.55918474186575],[127.28351736389754,36.55918063785843],[127.28328075636465,36.559128300360385],[127.28324641545846,36.55921957684055]]]],"type":"MultiPolygon"},"properties":{"area":343,"dong":"봉암리","jibun":"598-2","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033105980002","price":597800,"prpos":"64","pstyr1":586100,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28205974734188,36.55794039558269],[127.28214093783947,36.5580472689374],[127.2821830279904,36.55801986532762],[127.28218771978254,36.55801688052159],[127.28226274722623,36.55794847858367],[127.28226486234183,36.55794649109559],[127.28219204920208,36.55786429834586],[127.28211418105933,36.55788538807303],[127.28205974734188,36.55794039558269]]]],"type":"MultiPolygon"},"properties":{"area":218,"dong":"봉암리","jibun":"620-63","ldcode":"3611036033","lndcgr":"08","pnu":"3611036033106200063","price":365100,"prpos":"64","pstyr1":357700,"sittn":"110","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28918566543847,36.55527894847707],[127.2885965167936,36.55496037359195],[127.28850984394934,36.55505186773989],[127.28832089246178,36.55527382263547],[127.28828767233199,36.55532175307805],[127.28831901601733,36.555340331287596],[127.28860525027066,36.5555095974501],[127.28892830948558,36.55539761846431],[127.28913761286132,36.55530285450048],[127.28918566543847,36.55527894847707]]]],"type":"MultiPolygon"},"properties":{"area":2525,"dong":"봉암리","jibun":"951","ldcode":"3611036033","lndcgr":"04","pnu":"3611036033109510000","price":88900,"prpos":"71","pstyr1":88300,"sittn":"640","year":"2025"},"type":"Feature"},{"geometry":{"coordinates":[[[[127.28850105823683,36.56276991471856],[127.2884730902708,36.56270744299401],[127.28841399983709,36.56272326502108],[127.28835507778128,36.562736293082935],[127.28833861133657,36.56276931438407],[127.28831354411824,36.56291735972431],[127.28834863366879,36.563011633566205],[127.28842759308,36.5631608614174],[127.28846543509958,36.56320492614958],[127.28849991839836,36.56333453505589],[127.2885075857975,36.563365876231614],[127.28852665781784,36.56341512261555],[127.28859701852838,36.56348038490337],[127.28865870062566,36.56349159070997],[127.28870840805084,36.5635029154445],[127.28878337063296,36.563492551976495],[127.28885652365524,36.56346714380412],[127.28875400235506,36.56329940054391],[127.28870201758647,36.56319489454248],[127.28863348152053,36.56307628049626],[127.28854743728324,36.562878128981694],[127.28850105823683,36.56276991471856]]]],"type":"MultiPolygon"},"properties":{"area":1884,"dong":"봉암리","jibun":"280","ldcode":"3611036033","lndcgr":"01","pnu":"3611036033102800000","price":166600,"prpos":"64","pstyr1":164500,"sittn":"510","year":"2025"},"type":"Feature"}],"type":"FeatureCollection"}</script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const VWORLD_KEY = JSON.parse(document.getElementById('d-key').textContent);
-const FAVS       = JSON.parse(document.getElementById('d-favs').textContent);
-const CADASTRAL  = JSON.parse(document.getElementById('d-cad').textContent);
-
-const MT = [
-  {id:1,label:'본건',    color:'#ef4444'},
-  {id:2,label:'표준지',  color:'#3b82f6'},
-  {id:3,label:'거래사례',color:'#22c55e'},
-  {id:4,label:'평가선례',color:'#f59e0b'},
-  {id:5,label:'기타',    color:'#8b5cf6'},
-];
-function ti(id){ return MT.find(t=>t.id===Number(id))||MT[4]; }
-
-// 지도
-const lats=FAVS.map(f=>f.lat), lngs=FAVS.map(f=>f.lng);
-const cLat=(Math.min(...lats)+Math.max(...lats))/2;
-const cLng=(Math.min(...lngs)+Math.max(...lngs))/2;
-const map=L.map('map',{zoomControl:false}).setView([cLat,cLng],17);
-L.control.zoom({position:'bottomright'}).addTo(map);
-
-const tOSM=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OSM'});
-const tAerial=L.tileLayer(
-  `https://api.vworld.kr/req/wmts/1.0.0/${VWORLD_KEY}/Satellite/{z}/{y}/{x}.jpeg`,
-  {maxZoom:19,attribution:'© VWorld'}
-);
+var VWORLD_KEY="BF236E29-368D-344A-AF28-8DB019EAE50A";
+var FAVS=JSON.parse(document.getElementById("d-favs").textContent);
+var CADASTRAL=JSON.parse(document.getElementById("d-cad").textContent);
+var MT=[{id:1,label:"본건",color:"#ef4444"},{id:2,label:"표준지",color:"#3b82f6"},{id:3,label:"거래사례",color:"#22c55e"},{id:4,label:"평가선례",color:"#f59e0b"},{id:5,label:"기타",color:"#8b5cf6"}];
+function ti(id){return MT.find(function(t){return t.id===Number(id);})||MT[4];}
+var lats=FAVS.map(function(f){return f.lat;}),lngs=FAVS.map(function(f){return f.lng;});
+var cLat=(Math.min.apply(null,lats)+Math.max.apply(null,lats))/2;
+var cLng=(Math.min.apply(null,lngs)+Math.max.apply(null,lngs))/2;
+var map=L.map("map",{zoomControl:false}).setView([cLat,cLng],17);
+L.control.zoom({position:"bottomright"}).addTo(map);
+var tOSM=L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19});
+var tAerial=L.tileLayer("https://api.vworld.kr/req/wmts/1.0.0/"+VWORLD_KEY+"/Satellite/{z}/{y}/{x}.jpeg",{maxZoom:19});
 tAerial.addTo(map);
-let base='aerial';
-
-document.getElementById('btn-normal').onclick=()=>{
-  if(base==='normal')return;
-  map.removeLayer(tAerial);tOSM.addTo(map);base='normal';
-  document.getElementById('btn-normal').classList.add('active');
-  document.getElementById('btn-aerial').classList.remove('active');
-};
-document.getElementById('btn-aerial').onclick=()=>{
-  if(base==='aerial')return;
-  map.removeLayer(tOSM);tAerial.addTo(map);base='aerial';
-  document.getElementById('btn-aerial').classList.add('active');
-  document.getElementById('btn-normal').classList.remove('active');
-};
-
-// 표준지 지적선 (노란색)
-if(CADASTRAL.features&&CADASTRAL.features.length){
-  L.geoJSON(CADASTRAL,{style:{color:'#facc15',weight:1.5,opacity:.85,fill:false}}).addTo(map);
-}
-
-// 마커
-const tc={}, listEl=document.getElementById('list-items');
-FAVS.forEach(fav=>{
-  const t=ti(fav.type);
+var base="aerial";
+document.getElementById("btn-normal").onclick=function(){if(base==="normal")return;map.removeLayer(tAerial);tOSM.addTo(map);base="normal";document.getElementById("btn-normal").classList.add("active");document.getElementById("btn-aerial").classList.remove("active");};
+document.getElementById("btn-aerial").onclick=function(){if(base==="aerial")return;map.removeLayer(tOSM);tAerial.addTo(map);base="aerial";document.getElementById("btn-aerial").classList.add("active");document.getElementById("btn-normal").classList.remove("active");};
+if(CADASTRAL.features&&CADASTRAL.features.length){L.geoJSON(CADASTRAL,{style:{color:"#facc15",weight:1.5,opacity:.85,fill:false}}).addTo(map);}
+var tc={},listEl=document.getElementById("list-items");
+FAVS.forEach(function(fav){
+  var t=ti(fav.type);
   tc[fav.type]=(tc[fav.type]||0)+1;
-  const seq=tc[fav.type];
-  const label=fav.name||t.label;
-  const icon=L.divIcon({
-    className:'',
-    html:`<div style="display:flex;flex-direction:column;align-items:center;gap:1px;width:72px">
-      <div style="width:8px;height:8px;border-radius:50%;background:${t.color};border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.5)"></div>
-      <div style="background:rgba(0,0,0,.6);color:#fff;border-radius:3px;padding:1px 4px;font-size:9px;font-weight:600;white-space:nowrap;line-height:1.3;max-width:72px;overflow:hidden;text-overflow:ellipsis;text-align:center">${label}</div>
-    </div>`,
-    iconSize:[72,24],iconAnchor:[36,4],
-  });
-  const m=L.marker([fav.lat,fav.lng],{icon}).addTo(map);
-  const lastDong=s=>s?s.trim().split(/s+/).pop():'';
-  const fmtNum=v=>{const n=Number(String(v).replace(/,/g,''));return v!==''&&!isNaN(n)?n.toLocaleString():v;};
-  const popName=[lastDong(fav.dong),fav.jibun].filter(Boolean).join(' ')||fav.name||t.label;
-  const popLine1=[fav.jimok,fav.jiyuk].filter(Boolean).join('/');
-  const popLine2=fmtNum((fav.memo||'').split(' / ')[0]);
-  const memoText=[popLine1,popLine2].filter(Boolean).join('
-');
-  m.bindPopup(`<div><div class="pau-name">${popName}</div>${memoText?'<div class="pau-memo">'+memoText+'</div>':''}</div>`,{closeButton:false});
-
-  const addr=(fav.dong?fav.dong+' ':'')+(fav.jibun||'');
-  const div=document.createElement('div');
-  div.className='list-item';
-  div.innerHTML=`<div class="list-dot" style="background:${t.color}"></div>
-    <div><div class="list-name">${label}</div>
-    <div class="list-addr">${addr.trim()}</div></div>`;
-  div.onclick=()=>{ map.setView([fav.lat,fav.lng],18); m.openPopup(); closeList(); };
+  var seq=tc[fav.type];
+  var icon=L.divIcon({className:"",html:"<div style=\"background:"+t.color+";color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45)\">"+seq+"</div>",iconSize:[30,30],iconAnchor:[15,15]});
+  var m=L.marker([fav.lat,fav.lng],{icon:icon}).addTo(map);
+  var lastDong=function(s){return s?s.trim().split(/\s+/).pop():""};
+  var popName=[lastDong(fav.dong),fav.jibun].filter(Boolean).join(" ")||fav.name||t.label;
+  var line1=[fav.jimok,fav.jiyuk].filter(Boolean).join("/");
+  var line2=(fav.memo||"").split(" / ")[0];
+  m.bindPopup("<b>"+popName+"</b>"+(line1?"<br>"+line1:"")+(line2?"<br>"+line2:""));
+  var addr=(fav.dong?fav.dong+" ":"")+(fav.jibun||"");
+  var div=document.createElement("div");
+  div.className="list-item";
+  div.innerHTML="<div class=\"list-dot\" style=\"background:"+t.color+"\"></div><div><div class=\"list-name\">"+(fav.name||t.label+seq)+"</div><div class=\"list-addr\">"+addr.trim()+"</div></div>";
+  div.onclick=function(){map.setView([fav.lat,fav.lng],18);m.openPopup();listPanel.classList.remove("open");};
   listEl.appendChild(div);
 });
-
-if(FAVS.length>1){
-  map.fitBounds(L.latLngBounds(FAVS.map(f=>[f.lat,f.lng])),{padding:[50,50]});
-}
-
-// 목록 패널
-const listPanel=document.getElementById('list-panel');
-document.getElementById('list-btn').onclick=()=>listPanel.classList.toggle('open');
-document.getElementById('list-close').onclick=closeList;
-function closeList(){ listPanel.classList.remove('open'); }
-
-// GPS
-let gpsM=null,gpsC=null,wid=null,tracking=false;
-const gpsIcon=L.divIcon({
-  className:'',
-  html:'<div class="gps-dot"><div class="gps-dot-ring"></div><div class="gps-dot-inner"></div></div>',
-  iconSize:[16,16],iconAnchor:[8,8],
-});
-
-document.getElementById('gps-btn').onclick=()=>{
-  if(!navigator.geolocation){ toast('GPS 미지원'); return; }
+if(FAVS.length>1){map.fitBounds(L.latLngBounds(FAVS.map(function(f){return[f.lat,f.lng];})),{padding:[50,50]});}
+var listPanel=document.getElementById("list-panel");
+document.getElementById("list-btn").onclick=function(){listPanel.classList.toggle("open");};
+document.getElementById("list-close").onclick=function(){listPanel.classList.remove("open");};
+var gpsM=null,gpsC=null,wid=null,tracking=false;
+var gpsIcon=L.divIcon({className:"",html:"<div class=\"gps-dot\"><div class=\"gps-dot-ring\"></div><div class=\"gps-dot-inner\"></div></div>",iconSize:[16,16],iconAnchor:[8,8]});
+document.getElementById("gps-btn").onclick=function(){
+  if(!navigator.geolocation){alert("GPS 미지원");return;}
   if(tracking){
-    navigator.geolocation.clearWatch(wid);
-    tracking=false;
-    document.getElementById('gps-btn').classList.remove('tracking');
-    document.getElementById('gps-btn').textContent='📍';
-    toast('위치 추적 종료');
-  } else {
-    wid=navigator.geolocation.watchPosition(pos=>{
-      const{latitude:lat,longitude:lng,accuracy:acc}=pos.coords;
-      if(!gpsM){
-        gpsM=L.marker([lat,lng],{icon:gpsIcon,zIndexOffset:1000}).addTo(map);
-        gpsC=L.circle([lat,lng],{radius:acc,color:'#ef4444',fillOpacity:.08,weight:1}).addTo(map);
-        map.setView([lat,lng],map.getZoom());
-      } else {
-        gpsM.setLatLng([lat,lng]);
-        gpsC.setLatLng([lat,lng]).setRadius(acc);
-      }
-    },err=>{
-      tracking=false;
-      document.getElementById('gps-btn').classList.remove('tracking');
-      document.getElementById('gps-btn').textContent='📍';
-      if(err.code===1) toast('위치 권한 거부됨 → 설정>Safari>위치 확인');
-      else if(err.code===2) toast('위치를 가져올 수 없습니다 (신호 없음)');
-      else toast('GPS 오류: '+err.message);
+    navigator.geolocation.clearWatch(wid);tracking=false;
+    document.getElementById("gps-btn").textContent="📍";
+  }else{
+    wid=navigator.geolocation.watchPosition(function(pos){
+      var lat=pos.coords.latitude,lng=pos.coords.longitude,acc=pos.coords.accuracy;
+      if(!gpsM){gpsM=L.marker([lat,lng],{icon:gpsIcon,zIndexOffset:1000}).addTo(map);gpsC=L.circle([lat,lng],{radius:acc,color:"#ef4444",fillOpacity:.08,weight:1}).addTo(map);map.setView([lat,lng],map.getZoom());}
+      else{gpsM.setLatLng([lat,lng]);gpsC.setLatLng([lat,lng]).setRadius(acc);}
+    },function(err){
+      if(err.code===1)alert("위치 권한 거부 → 설정>Safari>위치 확인");
+      else alert("GPS 오류: "+err.message);
+      tracking=false;document.getElementById("gps-btn").textContent="📍";
     },{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
-    tracking=true;
-    document.getElementById('gps-btn').classList.add('tracking');
-    document.getElementById('gps-btn').textContent='🔵';
-    toast('위치 추적 시작');
+    tracking=true;document.getElementById("gps-btn").textContent="🔵";
   }
 };
-
-function toast(msg){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),2500);
-}
 </script>
 </body>
 </html>
