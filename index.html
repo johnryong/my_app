@@ -84,8 +84,8 @@ html,body{height:100%;font-family:-apple-system,sans-serif;background:#000}
 <body>
 <div id="map"></div>
 <div id="layer-toggle">
-  <button id="btn-normal" class="active">일반</button>
-  <button id="btn-aerial">항공</button>
+  <button id="btn-normal">일반</button>
+  <button id="btn-aerial" class="active">항공</button>
 </div>
 <button id="gps-btn" title="현재위치">📍</button>
 <button id="list-btn" title="목록">☰</button>
@@ -126,8 +126,8 @@ const tAerial=L.tileLayer(
   `https://api.vworld.kr/req/wmts/1.0.0/${VWORLD_KEY}/Satellite/{z}/{y}/{x}.jpeg`,
   {maxZoom:19,attribution:'© VWorld'}
 );
-tOSM.addTo(map);
-let base='normal';
+tAerial.addTo(map);
+let base='aerial';
 
 document.getElementById('btn-normal').onclick=()=>{
   if(base==='normal')return;
